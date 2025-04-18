@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../assets/logo.png'
 import { Link } from 'react-router-dom'
 
 function Register() {
+  const [logoLoaded, setLogoLoaded] = useState(false)
+
   return (
     <>
       <div className="flex min-h-dvh flex-col justify-start pt-14 px-4 overflow-y-auto">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            alt="Your Company"
-            src={logo}
-            className="mx-auto w-28"
-          />
+          <div className="flex justify-center">
+            {!logoLoaded && (
+              <div className="w-28 h-28 bg-gray-200 rounded animate-pulse" />
+            )}
+            <img
+              alt="Your Company"
+              src={logo}
+              onLoad={() => setLogoLoaded(true)}
+              className={`w-28 mx-auto transition-opacity duration-500 ${logoLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}
+            />
+          </div>
           <h2 className="mt-4 text-center text-xl font-bold tracking-tight text-gray-900">
             Ro'yhatdan o'tish
           </h2>
