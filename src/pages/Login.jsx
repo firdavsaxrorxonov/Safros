@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function Login() {
   return (
     <>
-      <div className="flex h-screen flex-col justify-center px-4 py-6 overflow-y-auto">
+      <div className="flex min-h-dvh flex-col justify-start pt-14 px-4 overflow-y-auto">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
@@ -29,7 +29,7 @@ function Login() {
                 type="text"
                 required
                 autoComplete="login"
-                className="mt-1 block w-full rounded-md bg-white px-3 py-1 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
+                className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
               />
             </div>
 
@@ -43,14 +43,14 @@ function Login() {
                 type="password"
                 required
                 autoComplete="current-password"
-                className="mt-1 block w-full rounded-md bg-white px-3 py-1 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
+                className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
               />
             </div>
 
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Kirish
               </button>
