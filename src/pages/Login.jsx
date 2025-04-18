@@ -10,7 +10,7 @@ function Login() {
           <img
             alt="Your Company"
             src={logo}
-            className="mx-auto w-20"
+            className="mx-auto w-28"
           />
           <h2 className="mt-4 text-center text-xl font-bold tracking-tight text-gray-900">
             Hisobga kirish
