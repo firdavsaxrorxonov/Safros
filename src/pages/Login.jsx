@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import logo from '../assets/logo.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Login() {
   const [logoLoaded, setLogoLoaded] = useState(false)
+  let navigate = useNavigate()
+  function handleNavigateHome() {
+    navigate('/qarzlar')
+  }
 
   return (
     <>
@@ -57,6 +61,7 @@ function Login() {
 
             <div>
               <button
+              onClick={handleNavigateHome()}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >

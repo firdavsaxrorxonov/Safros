@@ -1,10 +1,12 @@
 import React from 'react'
+import Header from '../components/Header'
 
-function MainLayout() {
+function MainLayout({ children }) {
   return (
-    <div>
-      
-    </div>
+    <>
+      <Header />
+      {children}
+    </>
   )
 }
 
