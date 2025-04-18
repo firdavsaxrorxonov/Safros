@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 function Settings() {
   let navigate = useNavigate()
   function handleQuite() {
-    navigate('/')
+    navigate('/login')
   }
   return (
     <div>

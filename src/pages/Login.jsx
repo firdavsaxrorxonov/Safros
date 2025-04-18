@@ -6,7 +6,7 @@ function Login() {
   const [logoLoaded, setLogoLoaded] = useState(false)
   let navigate = useNavigate()
   function handleNavigateHome() {
-    navigate('/qarzlar')
+    navigate('/')
   }
 
   return (
@@ -61,7 +61,7 @@ function Login() {
 
             <div>
               <button
-              onClick={handleNavigateHome()}
+                onClick={handleNavigateHome()}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >

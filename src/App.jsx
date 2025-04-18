@@ -13,12 +13,12 @@ function App() {
     <div className=''>
       <Routes>
         {/* Auth routes */}
-        <Route path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
 
         {/* MainLayout bilan o‘ralgan sahifalar */}
         <Route element={<MainLayout />}>
-          <Route path='/qarzlar' element={<Qarzlar />} />
+          <Route path='/' element={<Qarzlar />} />
           <Route path='/eslatmalar' element={<Eslatmalar />} />
           <Route path='/sozlamalar' element={<Settings />} />
         </Route>
