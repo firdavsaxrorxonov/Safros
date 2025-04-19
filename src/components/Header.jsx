@@ -9,7 +9,7 @@ function Header() {
       <nav>
         <ul className='flex items-center font-semibold justify-between'>
           <NavLink
-            to="/"
+            to="/qarzlar"
             className={({ isActive }) =>
               `flex flex-col-reverse gap-0.5 items-center ${isActive ? 'text-[#4F39F6]' : 'text-gray-600'}`
             }

@@ -12,18 +12,13 @@ function App() {
   return (
     <div className=''>
       <Routes>
-        {/* Auth routes */}
-        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
-
-        {/* MainLayout bilan o‘ralgan sahifalar */}
         <Route element={<MainLayout />}>
-          <Route path='/' element={<Qarzlar />} />
+          <Route path='/qarzlar' element={<Qarzlar />} />
           <Route path='/eslatmalar' element={<Eslatmalar />} />
           <Route path='/sozlamalar' element={<Settings />} />
         </Route>
-
-        {/* 404 */}
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>

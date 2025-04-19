@@ -1,17 +1,20 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons'
 
 function Settings() {
-  let navigate = useNavigate()
-  function handleQuite() {
-    navigate('/login')
-  }
-  return (
-    <div>
-      <button onClick={handleQuite()} class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-2xl shadow-md transition duration-300">
-        🔴 Chiqish
-      </button>
 
+
+  const navigate = useNavigate()
+
+  function handleNavigateToLogin() {
+    navigate('/')
+  }
+
+  return (
+    <div className='px-2 py-2'>
+      <button onClick={handleNavigateToLogin} className='px-2 py-3 bg-red-500 text-white flex items-center gap-2 rounded-lg'><FontAwesomeIcon icon={faDoorOpen} />Chiqish</button>
     </div>
   )
 }
