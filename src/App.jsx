@@ -7,6 +7,7 @@ import Qarzlar from './pages/Qarzlar'
 import Eslatmalar from './pages/Eslatmalar'
 import Settings from './pages/Settings'
 import NotFound from './pages/NotFound'
+import AddDebt from './pages/AddDebt'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/addDebt' element={<AddDebt />} />
         <Route element={<MainLayout />}>
           <Route path='/qarzlar' element={<Qarzlar />} />
           <Route path='/eslatmalar' element={<Eslatmalar />} />
