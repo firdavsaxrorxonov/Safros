@@ -25,7 +25,7 @@ function Header() {
             <NavLink
               to="/qarzlar"
               className={({ isActive }) =>
-                `flex flex-col-reverse gap-0.5 items-center ${isActive ? 'text-[#4F39F6]' : 'text-gray-600'}`
+                `flex flex-col-reverse gap-0.5 items-center ${isActive ? 'text-[#4F39F6]' : 'text-black'}`
               }
             >
               Qarzlar
@@ -34,7 +34,7 @@ function Header() {
             <NavLink
               to="/eslatmalar"
               className={({ isActive }) =>
-                `flex flex-col-reverse gap-0.5 items-center ${isActive ? 'text-[#4F39F6]' : 'text-gray-600'}`
+                `flex flex-col-reverse gap-0.5 items-center ${isActive ? 'text-[#4F39F6]' : 'text-black'}`
               }
             >
               Eslatmalar
@@ -43,7 +43,7 @@ function Header() {
             <NavLink
               to="/sozlamalar"
               className={({ isActive }) =>
-                `flex flex-col-reverse gap-0.5 items-center ${isActive ? 'text-[#4F39F6]' : 'text-gray-600'}`
+                `flex flex-col-reverse gap-0.5 items-center ${isActive ? 'text-[#4F39F6]' : 'text-black'}`
               }
             >
               Sozlamalar
