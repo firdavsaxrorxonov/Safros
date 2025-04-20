@@ -2,7 +2,7 @@ import React from 'react'
 
 function Qarzlar() {
   return (
-    <div>
+    <div className='pt-16 px-4'>
       Qarzlar
     </div>
   )

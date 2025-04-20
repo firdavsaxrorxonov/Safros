@@ -2,7 +2,7 @@ import React from 'react'
 
 function Eslatmalar() {
   return (
-    <div>Eslatmalar</div>
+    <div className='pt-16 px-4'>Eslatmalar</div>
   )
 }
 

@@ -13,7 +13,7 @@ function Settings() {
   }
 
   return (
-    <div className='px-2 py-2'>
+    <div className='pt-16 px-4'>
       <button onClick={handleNavigateToLogin} className='px-2 py-3 bg-red-500 text-white flex items-center gap-2 rounded-lg'><FontAwesomeIcon icon={faDoorOpen} />Chiqish</button>
     </div>
   )
