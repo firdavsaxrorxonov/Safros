@@ -1,25 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
 function AddDebt() {
+  const [selectedCurrency, setSelectedCurrency] = useState('UZS')
+
+  const currencyButtons = ['UZS', 'USD', 'UZS X/R']
+
+  const getButtonClasses = (currency) =>
+    selectedCurrency === currency
+      ? 'bg-indigo-600 border-2 border-indigo-600 px-4 max-w-23 w-full font-semibold py-2 rounded-md text-white whitespace-nowrap'
+      : 'bg-transparent border-2 border-indigo-600 text-black px-4 max-w-23 w-full font-semibold py-2 rounded-md whitespace-nowrap'
+
   return (
     <div>
       <div className='bg-white fixed top-0 w-full py-3 px-2.5 border-b-1 border-gray-300 pr-4'>
-        <Link to='/qarzlar' className=''>
+        <Link to='/qarzlar'>
           <FontAwesomeIcon className='text-lg mr-2' icon={faArrowLeft} />
-          <span className='text-2xl'>Ortga</span>
+          <span className='text-xl'>Ortga</span>
         </Link>
       </div>
-
-      <div className='pt-16 px-4'>
+      <div className='pt-16 px-4 flex items-center justify-center'>
         <div className='flex flex-col justify-center gap-y-3'>
           <input
             id="ism"
             name="ism"
             type="text"
-            require
+            required
             placeholder='Ism'
             autoComplete="ism"
             className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
@@ -27,33 +35,44 @@ function AddDebt() {
           <textarea
             id="desc"
             name="desc"
-            require
+            required
             placeholder='Izoh'
             autoComplete="desc"
-            className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
+            className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 font-semibold outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
           />
-
-          <div className='flex items-center justify-between'>
-            <button className='bg-indigo-600 px-4 max-w-23 w-full py-2 rounded-md text-white '>UZS</button>
-            <button className='bg-indigo-600 px-4 max-w-23 w-full py-2 rounded-md text-white '>USD</button>
-            <button className='bg-indigo-600 px-4 max-w-23 w-full py-2 rounded-md text-white '>UZS X/R</button>
+          <div className='flex items-center flex-wrap justify-between gap-2'>
+            {currencyButtons.map((currency) => (
+              <button
+                key={currency}
+                onClick={() => setSelectedCurrency(currency)}
+                className={getButtonClasses(currency)}
+              >
+                {currency}
+              </button>
+            ))}
           </div>
-          <input
-            id="count"
-            name="count"
-            type="number"
-            require
-            placeholder='summa'
-            autoComplete="count"
-            className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
-          />
+          <div className="relative">
+            <input
+              id="count"
+              name="count"
+              type="number"
+              required
+              placeholder='summa'
+              autoComplete="count"
+              className="appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none mt-1 block w-full rounded-md bg-white px-3 py-2 pr-16 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
+            />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-gray-500">
+              {selectedCurrency === 'UZS X/R' ? 'X/R' : selectedCurrency}
+            </span>
+          </div>
+          <h2 className='font-semibold'>Muddat</h2>
           <div className='flex items-center gap-3'>
-
-            <input className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" type="date" name="" id="" />
-            <span>to</span>
-            <input className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" type="date" name="" id="" />
+            <input className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" type="date" />
+            <span>gacha</span>
+            <input className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" type="date" />
           </div>
         </div>
+        <button className='bg-indigo-600 cursor-pointer px-4 transition duration-150 hover:bg-indigo-500 w-full mx-auto max-w-[358px] py-2 rounded-md absolute bottom-2 text-white'>Saqlash</button>
       </div>
     </div>
   )
