@@ -21,7 +21,7 @@ function AddDebt() {
           <span className='text-xl'>Ortga</span>
         </Link>
       </div>
-      <div className='pt-16 px-2 flex justify-center'>
+      <div className='pt-16 px-3 flex justify-center'>
         <div className='flex w-full flex-col justify-center gap-y-3'>
           <input
             id="ism"
