@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function AddDebt() {
   const [selectedCurrency, setSelectedCurrency] = useState('UZS')
@@ -12,6 +12,12 @@ function AddDebt() {
     selectedCurrency === currency
       ? 'bg-indigo-600 border-2 border-indigo-600 px-4 max-w-23 w-full font-semibold py-2 rounded-md text-white whitespace-nowrap'
       : 'bg-transparent border-2 border-indigo-600 text-black px-4 max-w-23 w-full font-semibold py-2 rounded-md whitespace-nowrap'
+
+  function handleSaveDebts() {
+    window.location.href = '/qarzlar';
+  }
+
+
 
   return (
     <div>
@@ -72,7 +78,7 @@ function AddDebt() {
             <input className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" type="date" />
           </div>
         </div>
-        <button className='bg-indigo-600 cursor-pointer px-4 transition duration-150 hover:bg-indigo-500 w-full mx-auto max-w-[358px] py-2 rounded-md fixed bottom-2 text-white'>Saqlash</button>
+        <button onClick={handleSaveDebts} className='bg-indigo-600 cursor-pointer px-4 transition duration-150 hover:bg-indigo-500 w-full mx-auto max-w-[358px] py-2 rounded-md fixed bottom-2 text-white'>Saqlash</button>
       </div>
     </div>
   )
