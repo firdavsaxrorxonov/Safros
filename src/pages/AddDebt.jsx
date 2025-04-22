@@ -47,6 +47,12 @@ function AddDebt() {
             autoComplete="count"
             className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
           />
+          <div className='flex items-center gap-3'>
+
+            <input className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" type="date" name="" id="" />
+            <span>to</span>
+            <input className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" type="date" name="" id="" />
+          </div>
         </div>
       </div>
     </div>

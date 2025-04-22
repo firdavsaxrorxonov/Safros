@@ -21,7 +21,7 @@ function Settings() {
           </div>
           <p className='text-xl'>Guest</p>
         </div>
-        <button onClick={handleNavigateToLogin} className='px-3 py-2 bg-red-500 text-white flex items-center gap-2 rounded-lg'><FontAwesomeIcon icon={faDoorOpen} />Chiqish</button>
+        <button onClick={handleNavigateToLogin} className='px-3 py-2 bg-red-500 text-white flex items-center cursor-pointer gap-2 rounded-lg'><FontAwesomeIcon icon={faDoorOpen} />Chiqish</button>
       </div>
     </div>
   )
