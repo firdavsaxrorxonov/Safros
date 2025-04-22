@@ -21,7 +21,7 @@ function AddDebt() {
           <span className='text-xl'>Ortga</span>
         </Link>
       </div>
-      <div className='pt-16 px-4 flex items-center justify-center'>
+      <div className='pt-16 px-4 flex justify-center'>
         <div className='flex flex-col justify-center gap-y-3'>
           <input
             id="ism"
@@ -40,7 +40,7 @@ function AddDebt() {
             autoComplete="desc"
             className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 font-semibold outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
           />
-          <div className='flex items-center flex-wrap justify-between gap-2'>
+          <div className='flex items-center justify-between gap-2'>
             {currencyButtons.map((currency) => (
               <button
                 key={currency}
