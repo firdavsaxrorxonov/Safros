@@ -17,8 +17,6 @@ function AddDebt() {
     window.location.href = '/qarzlar';
   }
 
-
-
   return (
     <div>
       <div className='bg-white fixed top-0 w-full py-3 px-2.5 border-b-1 border-gray-300 pr-4'>
