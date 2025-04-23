@@ -27,7 +27,7 @@ function Qarzlar() {
   }
 
   return (
-    <div className='pt-16 px-2'>
+    <div className='pt-17 px-2'>
       <div className='flex flex-col gap-4'>
         {users.map((user) => (
           <div
