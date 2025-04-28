@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,6 +12,8 @@ function Login() {
   const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
+  const [validationError, setValidationError] = useState("");
+
   let navigate = useNavigate();
 
   const token = Cookies.get("Token");
@@ -20,27 +22,37 @@ function Login() {
   }
 
   function handleNavigateHome() {
+    if (username.trim().length < 3) {
+      setValidationError("Login kamida 3 ta belgidan iborat bo‘lishi kerak.");
+      return;
+    }
+    if (pwd.trim().length < 4) {
+      setValidationError("Parol kamida 4 ta belgidan iborat bo‘lishi kerak.");
+      return;
+    }
+
     async function handleLogin() {
+      setLoading(true); // <<=== POST so'rovdan oldin loading true
       try {
         const response = await axios.post(
           "https://safros.up.railway.app/api/v1/login",
           {
-            username: username,
-            password: pwd,
+            username: username.trim(),
+            password: pwd.trim(),
           }
         );
-        setLoading(false);
         Cookies.remove("Token");
         Cookies.set("Token", response.data.key);
         localStorage.removeItem("safros-userdata");
         localStorage.setItem(
           "safros-userdata",
-          JSON.stringify({ username: username })
+          JSON.stringify({ username: username.trim() })
         );
         navigate("/qarzlar");
       } catch {
-        setLoading(false);
         setError("Foydalanuvchi nomi yoki parol xato, Iltimos qayta uruning.");
+      } finally {
+        setLoading(false); // <<=== Har qanday holatda loading false
       }
     }
     handleLogin();
@@ -56,16 +68,15 @@ function Login() {
           <img
             alt="Your Company"
             src={logo}
-            className={`w-28 mx-auto transition-opacity duration-500 ${
-              logoLoaded ? "opacity-100" : "opacity-0 absolute"
-            }`}
+            className={`w-28 mx-auto transition-opacity duration-500 ${logoLoaded ? "opacity-100" : "opacity-0 absolute"
+              }`}
             onLoad={() => setLogoLoaded(true)}
           />
         </div>
         <h2 className="mt-4 text-center text-xl font-bold tracking-tight text-gray-900">
           Hisobga kirish
         </h2>
-        <p className="text-center mt-1 text-red-600">{error}</p>
+        <p className="text-center mt-1 text-red-600">{error || validationError}</p>
       </div>
 
       <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm space-y-4">
@@ -85,6 +96,7 @@ function Login() {
             onChange={(e) => {
               setUsername(e.target.value);
               setError("");
+              setValidationError("");
             }}
             className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
           />
@@ -106,6 +118,7 @@ function Login() {
             onChange={(e) => {
               setPwd(e.target.value);
               setError("");
+              setValidationError("");
             }}
             className="mt-1 block w-full rounded-md bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
           />
@@ -113,12 +126,12 @@ function Login() {
 
         <div>
           <button
-            disabled={username.length === 0 || pwd.length === 0}
-            onClick={() => {
-              handleNavigateHome();
-              setLoading(true);
-            }}
-            className="flex w-full cursor-pointer justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            disabled={username.length === 0 || pwd.length === 0 || loading}
+            onClick={handleNavigateHome}
+            className={`flex w-full cursor-pointer justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${loading
+              ? "bg-indigo-400 cursor-not-allowed" // Yuklanmoqda payti rang oqaradi
+              : "bg-indigo-600 hover:bg-indigo-500"
+              }`}
           >
             {loading ? "Yuklanmoqda..." : "Kirish"}
           </button>

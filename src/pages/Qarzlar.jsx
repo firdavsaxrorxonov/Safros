@@ -1,23 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Qarzlar() {
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
 
   function handleNavigateToAddDebt() {
     navigate('/addDebt');
   }
 
-  // Foydalanuvchilar: ism, balans, valyuta
-  const users = [
-    { name: 'Nodir', balance: 50000, currency: 'usd', date: new Date(), id: 1 },
-    { name: 'Kamoliddinjon', balance: -500000, currency: 'so‘m', date: new Date(), id: 2 },
-    { name: 'Abduvohid', balance: 500000, currency: 'X/R', date: new Date(), id: 3 },
-  ];
+  useEffect(() => {
+    function fetchUsers() {
+      const token = Cookies.get('Token');
+      console.log(token);
+       // Cookie’dan tokenni olish
 
-  // Valyuta formatlash funksiyasi
+      axios.get('https://safros.up.railway.app/api/v1/data/qarzlar/', {
+        headers: {
+          Authorization: `Token b036b540a3ee8de467b1737c04c9ad2b9b659068`,
+          withCredentials: true,
+        },
+      })
+        .then((response) => {
+          const data = response.data;
+          const formattedData = data.map(user => ({
+            name: user.odam_ismi,
+            balance: user.qarz,
+            currency: user.qolgan_summasi,
+            date: user.boshlanish_sanasi,
+            id: user.id,
+          }));
+          setUsers(formattedData);
+        })
+        .catch((error) => {
+          console.error('Xatolik yuz berdi:', error);
+        });
+    }
+
+    fetchUsers();
+  }, []);
+
   function formatCurrency(amount, currency) {
     const formatted = Math.abs(amount).toLocaleString();
     if (currency === 'usd') return `$${formatted}`;
@@ -34,7 +60,6 @@ function Qarzlar() {
             key={user.id}
             className='flex items-center justify-between relative cursor-pointer'
             onClick={() => navigate(`/user-detail/${user.name.toLowerCase()}`)}
-
           >
             <div className='flex items-center gap-2'>
               <div className='w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center'>
@@ -57,7 +82,7 @@ function Qarzlar() {
 
       <button
         onClick={handleNavigateToAddDebt}
-        className='w-13 h-13 flex items-center justify-center text-white text-xl rounded-md bg-[#4F39F6] fixed bottom-22 right-6 hover:bg-[#276CED] transition duration-150 cursor-pointer'
+        className='w-13 h-13 flex items-center justify-center text-white text-xl rounded-xl bg-[#4F39F6] fixed bottom-22 right-6 hover:bg-[#276CED] transition duration-150 cursor-pointer'
       >
         <FontAwesomeIcon icon={faPlus} />
       </button>

@@ -18,8 +18,8 @@ function Settings() {
     <div className="pt-17 px-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-center">
-            <span className="text-lg">
+          <div className="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center text-center">
+            <span className="text-lg font-semibold">
               {userdata.username[0].toUpperCase()}
             </span>
           </div>
