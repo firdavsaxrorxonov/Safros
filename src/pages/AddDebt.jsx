@@ -21,7 +21,7 @@ function AddDebt() {
   const getButtonClasses = (currency) =>
     selectedCurrency === currency
       ? 'bg-indigo-600 border-2 border-indigo-600 px-4 max-w-23 w-full font-semibold py-2 rounded-md text-white whitespace-nowrap'
-      : 'bg-transparent border-2 border-indigo-600 text-black px-4 max-w-23 w-full font-semibold py-2 rounded-md whitespace-nowrap';
+      : 'bg-transparent text-indigo-600 border-2 border-indigo-600 text-black px-4 max-w-23 w-full font-semibold py-2 rounded-md whitespace-nowrap';
 
   const isFormValid = () => {
     return ism.trim() && count && startDate && dueDate;
