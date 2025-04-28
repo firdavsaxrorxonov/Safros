@@ -2,82 +2,94 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 
 function Qarzlar() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   function handleNavigateToAddDebt() {
     navigate('/addDebt');
   }
 
   useEffect(() => {
-    function fetchUsers() {
+    async function fetchUsers() {
       const token = Cookies.get('Token');
       console.log(token);
-       // Cookie’dan tokenni olish
 
-      axios.get('https://safros.up.railway.app/api/v1/data/qarzlar/', {
-        headers: {
-          Authorization: `Token b036b540a3ee8de467b1737c04c9ad2b9b659068`,
+      try {
+        const response = await fetch('https://safros.up.railway.app/api/v1/data/qarzlar/', {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
           withCredentials: true,
-        },
-      })
-        .then((response) => {
-          const data = response.data;
-          const formattedData = data.map(user => ({
-            name: user.odam_ismi,
-            balance: user.qarz,
-            currency: user.qolgan_summasi,
-            date: user.boshlanish_sanasi,
-            id: user.id,
-          }));
-          setUsers(formattedData);
-        })
-        .catch((error) => {
-          console.error('Xatolik yuz berdi:', error);
         });
+
+        if (!response.ok) {
+          throw new Error('Tarmoqqa ulanishda xatolik');
+        }
+
+        const data = await response.json();
+        console.log('Mana Api', data);
+
+        const formattedData = data.map(user => ({
+          name: user.odam_ismi,
+          balance: user.qarz,
+          currency: user.valyuta_turi,
+          date: user.boshlanish_sanasi,
+          id: user.id,
+        }));
+
+        setUsers(formattedData);
+      } catch (error) {
+        console.error('Xatolik yuz berdi:', error);
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchUsers();
   }, []);
 
-  function formatCurrency(amount, currency) {
-    const formatted = Math.abs(amount).toLocaleString();
-    if (currency === 'usd') return `$${formatted}`;
-    if (currency === 'so‘m') return `${formatted} so‘m`;
-    if (currency === 'X/R') return `${formatted} X/R`;
-    return formatted;
-  }
-
   return (
     <div className='pt-17 px-2'>
       <div className='flex flex-col gap-4'>
-        {users.map((user) => (
-          <div
-            key={user.id}
-            className='flex items-center justify-between relative cursor-pointer'
-            onClick={() => navigate(`/user-detail/${user.name.toLowerCase()}`)}
-          >
-            <div className='flex items-center gap-2'>
-              <div className='w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center'>
-                <span className='text-lg text-white font-semibold'>
-                  {user.name.charAt(0).toUpperCase()}
-                </span>
+        {loading ? (
+          Array.from({ length: 5 }).map((_, index) => (
+            <div key={index} className="flex items-center justify-between animate-pulse">
+              <div className="flex items-center gap-2">
+                <div className="w-12 h-12 rounded-full bg-gray-300"></div>
+                <div className="h-5 w-24 bg-gray-300 rounded"></div>
               </div>
-              <p className='text-xl max-w-[120px] truncate'>{user.name}</p>
+              <div className="h-5 w-16 bg-gray-300 rounded"></div>
             </div>
-            <span className='absolute right-0 -top-1 text-xs'>
-              {user.date.toLocaleString()}
-            </span>
-            <p className={`text-xl font-semibold ${user.balance < 0 ? 'text-red-500' : 'text-green-600'}`}>
-              {user.balance < 0 ? '-' : ''}
-              {formatCurrency(user.balance, user.currency)}
-            </p>
-          </div>
-        ))}
+          ))
+        ) : (
+          users.map((user) => (
+            <div
+              key={user.id}
+              className='flex items-center justify-between relative cursor-pointer'
+              onClick={() => navigate(`/user-detail/${user.name.toLowerCase()}`)}
+            >
+              <div className='flex items-center gap-2'>
+                <div className='w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center'>
+                  <span className='text-lg text-white font-semibold'>
+                    {user.name.charAt(0).toUpperCase()}
+                  </span>
+                </div>
+                <p className='text-xl max-w-[120px] truncate'>{user.name}</p>
+              </div>
+              <span className='absolute right-0 -top-1 text-xs'>
+                {new Date(user.date).toLocaleDateString()}
+              </span>
+              <p className={`text-xl font-semibold ${user.balance < 0 ? 'text-red-500' : 'text-green-600'}`}>
+                {user.balance < 0 ? '-' : ''}
+                {user.balance} {user.currency.toUpperCase()}
+              </p>
+            </div>
+          ))
+        )}
       </div>
 
       <button
