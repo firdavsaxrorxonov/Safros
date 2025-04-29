@@ -61,7 +61,7 @@ function AddDebt() {
       setDueDate("");
       setTransactionType("Qarz berish");
 
-      navigate("/qarzlar");
+      navigate("/");
     } catch (error) {
       console.error("Xatolik yuz berdi:", error);
     } finally {
@@ -72,7 +72,7 @@ function AddDebt() {
   return (
     <div>
       <div className="bg-white fixed top-0 w-full py-3 px-2.5 border-b border-gray-300 pr-4">
-        <Link to="/qarzlar" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <FontAwesomeIcon className="text-lg" icon={faArrowLeft} />
           <span className="text-xl">Ortga</span>
         </Link>

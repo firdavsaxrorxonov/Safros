@@ -55,7 +55,7 @@ function Register() {
         "safros-userdata",
         JSON.stringify({ username: username.trim() })
       );
-      navigate("/qarzlar");
+      navigate("/");
     } catch (err) {
       console.log(err.response?.data);
       if (err.response?.data?.username) {

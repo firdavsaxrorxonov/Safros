@@ -9,17 +9,24 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import AddDebt from "./pages/AddDebt";
 import UserDetail from "./pages/UserDetail";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <div className="">
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/addDebt" element={<AddDebt />} />
         <Route path="/user-detail/:userName" element={<UserDetail />} />
-        <Route element={<MainLayout />}>
-          <Route path="/qarzlar" element={<Qarzlar />} />
+        <Route
+          element={
+            <ProtectedRoute>
+              <MainLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/" element={<Qarzlar />} />
           <Route path="/eslatmalar" element={<Eslatmalar />} />
           <Route path="/sozlamalar" element={<Settings />} />
         </Route>

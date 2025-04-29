@@ -10,7 +10,7 @@ function Settings() {
   function handleNavigateToLogin() {
     Cookies.remove("Token");
     localStorage.removeItem("safros-userdata");
-    navigate("/");
+    navigate("/login");
   }
   const userdata = JSON.parse(localStorage.getItem("safros-userdata"));
 

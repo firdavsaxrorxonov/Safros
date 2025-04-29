@@ -40,7 +40,7 @@ function UserDetail() {
   return (
     <>
       <div className='bg-white fixed top-0 w-full py-3 px-2.5 border-b-1 border-gray-300 pr-4'>
-        <Link to='/qarzlar'>
+        <Link to='/'>
           <FontAwesomeIcon className='text-lg mr-2' icon={faArrowLeft} />
           <span className='text-xl'>Ortga</span>
         </Link>

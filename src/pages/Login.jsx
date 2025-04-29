@@ -18,7 +18,7 @@ function Login() {
 
   const token = Cookies.get("Token");
   if (token) {
-    return <Navigate to="/qarzlar" replace />;
+    return <Navigate to="/" replace />;
   }
 
   function handleNavigateHome() {
@@ -48,7 +48,7 @@ function Login() {
           "safros-userdata",
           JSON.stringify({ username: username.trim() })
         );
-        navigate("/qarzlar");
+        navigate("/");
       } catch {
         setError("Foydalanuvchi nomi yoki parol xato, Iltimos qayta uruning.");
       } finally {
