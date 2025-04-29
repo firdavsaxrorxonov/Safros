@@ -3,11 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import Header from '../components/Header';
 
 function Qarzlar() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(''); // searchQuery state
 
   function handleNavigateToAddDebt() {
     navigate('/addDebt');
@@ -16,7 +18,6 @@ function Qarzlar() {
   useEffect(() => {
     async function fetchUsers() {
       const token = Cookies.get('Token');
-      console.log(token);
 
       try {
         const response = await fetch('https://safros.up.railway.app/api/v1/data/qarzlar/', {
@@ -31,7 +32,6 @@ function Qarzlar() {
         }
 
         const data = await response.json();
-        console.log('Mana Api', data);
 
         const formattedData = data.map(user => ({
           name: user.odam_ismi,
@@ -52,8 +52,15 @@ function Qarzlar() {
     fetchUsers();
   }, []);
 
+  // Filter users by name, taking care of the search query
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()) // Filter by name
+  );
+
   return (
     <div className='pt-17 px-2'>
+      <Header onSearch={setSearchQuery} /> {/* Pass setSearchQuery as a prop */}
+
       <div className='flex flex-col gap-4'>
         {loading ? (
           Array.from({ length: 5 }).map((_, index) => (
@@ -66,7 +73,7 @@ function Qarzlar() {
             </div>
           ))
         ) : (
-          users.map((user) => (
+          filteredUsers.map((user) => ( // Map over filtered users
             <div
               key={user.id}
               className='flex items-center justify-between relative cursor-pointer'
@@ -84,9 +91,9 @@ function Qarzlar() {
                 {new Date(user.date).toLocaleDateString()}
               </span>
               <p className={`text-xl font-semibold ${user.balance < 0 ? 'text-red-500' : 'text-green-600'}`}>
-                {user.balance < 0 ? '-' : ''}
-                {user.balance} {user.currency.toUpperCase()}
+                {user.balance < 0 ? '-' : ''}{Math.abs(user.balance)} {user.currency.toUpperCase()}
               </p>
+
             </div>
           ))
         )}

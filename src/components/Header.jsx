@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollar, faClipboard, faGear, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import safrosLogo from '../assets/logo.svg';
 
-
-function Header() {
+function Header({ onSearch }) {
   const [logoLoaded, setLogoLoaded] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -26,8 +26,15 @@ function Header() {
     }
   }, [showSearch]);
 
+  useEffect(() => {
+    if (onSearch) {
+      onSearch(searchQuery);
+    }
+  }, [searchQuery, onSearch]);
+
   return (
     <>
+      {/* Header yuqori qismi */}
       <div className='bg-white fixed top-0 w-full py-3 px-2.5 border-b border-gray-300 pr-4 flex items-center justify-between z-50'>
         <div>
           {logoLoaded ? (
@@ -55,11 +62,15 @@ function Header() {
             ref={inputRef}
             type="text"
             placeholder="Qidirish..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className={`transition-all duration-300 ease-in-out bg-white text-sm text-gray-900 placeholder:text-gray-400 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600 rounded-md px-2 py-1.5
               ${showSearch ? 'opacity-100 w-48 scale-100' : 'opacity-0 w-0 scale-95 pointer-events-none'}`}
           />
         </div>
       </div>
+
+      {/* Footer qismi */}
       <div className='border-t border-gray-400 py-3 rounded-tl-2xl rounded-tr-2xl px-5 fixed bottom-0 w-full bg-white'>
         <nav>
           <ul className='flex items-center font-semibold justify-between'>
@@ -94,7 +105,7 @@ function Header() {
         </nav>
       </div>
     </>
-  )
+  );
 }
 
-export default Header
+export default Header;
