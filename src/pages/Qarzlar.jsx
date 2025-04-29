@@ -34,9 +34,9 @@ function Qarzlar() {
       }
 
       const data = await response.json();
-      const formattedData = data.map(user => ({
+      const formattedData = data.map((user) => ({
         name: user.odam_ismi,
-        balance: user.qarz,
+        balance: user.qolgan_summasi,
         currency: user.valyuta_turi,
         date: user.boshlanish_sanasi,
         id: user.id,

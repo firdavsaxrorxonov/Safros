@@ -49,8 +49,10 @@ function Login() {
           JSON.stringify({ username: username.trim() })
         );
         navigate("/");
-      } catch {
-        setError("Foydalanuvchi nomi yoki parol xato, Iltimos qayta uruning.");
+      } catch (e){
+        console.log(e);
+        
+        // setError("Foydalanuvchi nomi yoki parol xato, Iltimos qayta uruning.");
       } finally {
         setLoading(false); // <<=== Har qanday holatda loading false
       }
