@@ -1,65 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Header from '../components/Header';
 
 function Qarzlar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState(''); // searchQuery state
+  const [searchQuery, setSearchQuery] = useState('');
 
-  function handleNavigateToAddDebt() {
+  const searchParams = new URLSearchParams(location.search);
+  const updated = searchParams.get('updated');
+
+  const handleNavigateToAddDebt = () => {
     navigate('/addDebt');
-  }
+  };
+
+  const fetchUsers = async () => {
+    const token = Cookies.get('Token');
+    try {
+      const response = await fetch('https://safros.up.railway.app/api/v1/data/qarzlar/', {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+        withCredentials: true,
+      });
+
+      if (!response.ok) {
+        throw new Error('Tarmoqqa ulanishda xatolik');
+      }
+
+      const data = await response.json();
+      const formattedData = data.map(user => ({
+        name: user.odam_ismi,
+        balance: user.qarz,
+        currency: user.valyuta_turi,
+        date: user.boshlanish_sanasi,
+        id: user.id,
+      }));
+
+      setUsers(formattedData);
+    } catch (error) {
+      console.error('Xatolik yuz berdi:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    async function fetchUsers() {
-      const token = Cookies.get('Token');
-
-      try {
-        const response = await fetch('https://safros.up.railway.app/api/v1/data/qarzlar/', {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-          withCredentials: true,
-        });
-
-        if (!response.ok) {
-          throw new Error('Tarmoqqa ulanishda xatolik');
-        }
-
-        const data = await response.json();
-
-        const formattedData = data.map(user => ({
-          name: user.odam_ismi,
-          balance: user.qarz,
-          currency: user.valyuta_turi,
-          date: user.boshlanish_sanasi,
-          id: user.id,
-        }));
-
-        setUsers(formattedData);
-      } catch (error) {
-        console.error('Xatolik yuz berdi:', error);
-      } finally {
-        setLoading(false);
-      }
+    if (updated) {
+      fetchUsers();
     }
+  }, [updated]);
 
+  useEffect(() => {
     fetchUsers();
   }, []);
 
-  // Filter users by name, taking care of the search query
+  // Qidiruv so'ziga asoslangan foydalanuvchilarni filtrlaymiz
   const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) // Filter by name
+    user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className='pt-17 px-2'>
-      <Header onSearch={setSearchQuery} /> {/* Pass setSearchQuery as a prop */}
+      <Header onSearch={setSearchQuery} /> {/* setSearchQuery funksiyasini prop sifatida uzatamiz */}
 
       <div className='flex flex-col gap-4'>
         {loading ? (
@@ -73,11 +81,12 @@ function Qarzlar() {
             </div>
           ))
         ) : (
-          filteredUsers.map((user) => ( // Map over filtered users
+          filteredUsers.map((user) => (
             <div
               key={user.id}
               className='flex items-center justify-between relative cursor-pointer'
-              onClick={() => navigate(`/user-detail/${user.name.toLowerCase()}`)}
+              onClick={() => navigate(`/user-detail/${user.id}`)}
+
             >
               <div className='flex items-center gap-2'>
                 <div className='w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center'>
@@ -93,7 +102,6 @@ function Qarzlar() {
               <p className={`text-xl font-semibold ${user.balance < 0 ? 'text-red-500' : 'text-green-600'}`}>
                 {user.balance < 0 ? '-' : ''}{Math.abs(user.balance)} {user.currency.toUpperCase()}
               </p>
-
             </div>
           ))
         )}

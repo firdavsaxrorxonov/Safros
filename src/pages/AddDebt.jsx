@@ -53,6 +53,7 @@ function AddDebt() {
         }
       );
 
+      // Formani tozalash
       setIsm("");
       setDesc("");
       setCount("");
@@ -61,7 +62,8 @@ function AddDebt() {
       setDueDate("");
       setTransactionType("Qarz berish");
 
-      navigate("/");
+      // Qarzlar sahifasiga o'tish va URLga parametr qo'shish
+      navigate("/?updated=true");
     } catch (error) {
       console.error("Xatolik yuz berdi:", error);
     } finally {
