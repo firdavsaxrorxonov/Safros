@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const ProtectedRoute = ({ children }) => {
-  const token = Cookies.get("Token"); // cookie ichidan tokenni olamiz
+  const token = Cookies.get("safros-token"); // cookie ichidan tokenni olamiz
 
   if (!token) {
     return <Navigate to="/login" replace />;

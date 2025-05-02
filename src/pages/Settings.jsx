@@ -8,7 +8,7 @@ function Settings() {
   const navigate = useNavigate();
 
   function handleNavigateToLogin() {
-    Cookies.remove("Token");
+    Cookies.remove("safros-token");
     localStorage.removeItem("safros-userdata");
     navigate("/login");
   }

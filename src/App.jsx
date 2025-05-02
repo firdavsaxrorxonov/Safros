@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -10,8 +10,35 @@ import NotFound from "./pages/NotFound";
 import AddDebt from "./pages/AddDebt";
 import UserDetail from "./pages/UserDetail";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { generateToken, messaging } from "./notification/firebase";
+import { onMessage } from "firebase/messaging";
 
 function App() {
+  useEffect(() => {
+    generateToken();
+    onMessage(messaging, (poyload) => {
+      console.log(poyload);
+    });
+  }, []);
+  // useEffect(() => {
+  //   if ("serviceWorker" in navigator) {
+  //     navigator.serviceWorker
+  //       .register("/firebase-messaging-sw.js")
+  //       .then((registration) => {
+  //         console.log("✅ Service Worker registered:", registration);
+  //       })
+  //       .catch((err) => {
+  //         console.error("❌ Service Worker registration failed:", err);
+  //       });
+  //   }
+
+  //   generateToken();
+
+  //   onMessage(messaging, (payload) => {
+  //     console.log("📥 Foreground message received:", payload);
+  //   });
+  // }, []);
+
   return (
     <div className="">
       <Routes>

@@ -31,7 +31,7 @@ function AddDebt() {
   const handleSaveDebts = async () => {
     if (!isFormValid()) return;
 
-    const token = Cookies.get("Token");
+    const token = Cookies.get("safros-token");
 
     try {
       setLoading(true);

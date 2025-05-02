@@ -16,7 +16,7 @@ function Login() {
 
   let navigate = useNavigate();
 
-  const token = Cookies.get("Token");
+  const token = Cookies.get("safros-token");
   if (token) {
     return <Navigate to="/" replace />;
   }
@@ -41,8 +41,8 @@ function Login() {
             password: pwd.trim(),
           }
         );
-        Cookies.remove("Token");
-        Cookies.set("Token", response.data.key);
+        Cookies.remove("safros-token");
+        Cookies.set("safros-token", response.data.key, {expires: 30});
         localStorage.removeItem("safros-userdata");
         localStorage.setItem(
           "safros-userdata",

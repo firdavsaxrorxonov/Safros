@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 
 function MainLayout() {
-  const token = Cookies.get("Token");
+  const token = Cookies.get("safros-token");
   if (!token) {
     return <Navigate to="/" replace />;
   }

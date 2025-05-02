@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -19,6 +19,11 @@ function Register() {
   const navigate = useNavigate();
 
   const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/;
+
+  const token = Cookies.get("safros-token");
+  if (token) {
+    return <Navigate to="/" replace />;
+  }
 
   async function handleRegisterClick(e) {
     e.preventDefault();
@@ -50,7 +55,8 @@ function Register() {
           password2: pwd.trim(),
         }
       );
-      Cookies.set("Token", response.data.key);
+      Cookies.remove("safros-token");
+      Cookies.set("safros-token", response.data.key, { expires: 30 });
       localStorage.setItem(
         "safros-userdata",
         JSON.stringify({ username: username.trim() })
@@ -63,7 +69,9 @@ function Register() {
       } else if (err.response?.data?.password1) {
         setError(err.response.data.password1[0]);
       } else {
-        setError("Ro'yxatdan o'tishda xatolik yuz berdi. Qayta urinib ko‘ring.");
+        setError(
+          "Ro'yxatdan o'tishda xatolik yuz berdi. Qayta urinib ko‘ring."
+        );
       }
     } finally {
       setLoading(false);

@@ -14,7 +14,7 @@ function UserDetail() {
   const [count, setCount] = useState(); // count ni boshlang'ich qiymati 0 bo'lsa
   const [loading, setLoading] = useState(true);
   const [ploading, setPloading] = useState(false);
-  const token = Cookies.get("Token");
+  const token = Cookies.get("safros-token");
 
   const fetchUserDetails = async () => {
     try {
