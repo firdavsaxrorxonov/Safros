@@ -23,7 +23,7 @@ function Qarzlar() {
     const token = Cookies.get("safros-token");
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/v1/data/qarzlar/",
+        "https://safros.up.railway.app/api/v1/data/qarzlar/",
         {
           headers: {
             Authorization: `Token ${token}`,

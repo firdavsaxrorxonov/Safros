@@ -42,16 +42,16 @@ function Login() {
           }
         );
         Cookies.remove("safros-token");
-        Cookies.set("safros-token", response.data.key, {expires: 30});
+        Cookies.set("safros-token", response.data.key, { expires: 30 });
         localStorage.removeItem("safros-userdata");
         localStorage.setItem(
           "safros-userdata",
           JSON.stringify({ username: username.trim() })
         );
         navigate("/");
-      } catch (e){
+      } catch (e) {
         console.log(e);
-        
+
         // setError("Foydalanuvchi nomi yoki parol xato, Iltimos qayta uruning.");
       } finally {
         setLoading(false); // <<=== Har qanday holatda loading false
@@ -70,15 +70,18 @@ function Login() {
           <img
             alt="Your Company"
             src={logo}
-            className={`w-28 mx-auto transition-opacity duration-500 ${logoLoaded ? "opacity-100" : "opacity-0 absolute"
-              }`}
+            className={`w-28 mx-auto transition-opacity duration-500 ${
+              logoLoaded ? "opacity-100" : "opacity-0 absolute"
+            }`}
             onLoad={() => setLogoLoaded(true)}
           />
         </div>
         <h2 className="mt-4 text-center text-xl font-bold tracking-tight text-gray-900">
           Hisobga kirish
         </h2>
-        <p className="text-center mt-1 text-red-600">{error || validationError}</p>
+        <p className="text-center mt-1 text-red-600">
+          {error || validationError}
+        </p>
       </div>
 
       <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm space-y-4">
@@ -130,10 +133,11 @@ function Login() {
           <button
             disabled={username.length === 0 || pwd.length === 0 || loading}
             onClick={handleNavigateHome}
-            className={`flex w-full cursor-pointer justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${loading
-              ? "bg-indigo-400 cursor-not-allowed" // Yuklanmoqda payti rang oqaradi
-              : "bg-indigo-600 hover:bg-indigo-500"
-              }`}
+            className={`flex w-full cursor-pointer justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+              loading
+                ? "bg-indigo-400 cursor-not-allowed" // Yuklanmoqda payti rang oqaradi
+                : "bg-indigo-600 hover:bg-indigo-500"
+            }`}
           >
             {loading ? "Yuklanmoqda..." : "Kirish"}
           </button>
